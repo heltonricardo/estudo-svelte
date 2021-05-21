@@ -1,5 +1,5 @@
 <script>
-	import ContactCard from "./ContactCard.svelte"
+  import ContactCard from "./ContactCard.svelte";
 
   let name = "Helton";
   let age = 0;
@@ -34,7 +34,7 @@
 <!-- <input type="text" value={name} on:input={nameInput} /> -->
 <input type="text" bind:value={name} />
 
-<ContactCard />
+<ContactCard userName={name} />
 
 <style>
   h1 {
