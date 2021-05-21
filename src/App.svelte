@@ -2,6 +2,9 @@
   import ContactCard from "./ContactCard.svelte";
 
   let name = "Helton";
+  let job = "Estagiário";
+  let description = "Estudando Svelte.js";
+  let image = "https://avatars.githubusercontent.com/u/50843386?v=4";
   let age = 0;
 
   /* Variável reativa: altera seu valor assim que o valor atribuído é alterado
@@ -18,23 +21,22 @@
   function incrementAge() {
     age += 1;
   }
-
-  function changeName() {
-    name = "Ricardo";
-  }
-
-  function nameInput(event) {
-    name = event.target.value;
-  }
 </script>
 
 <h1>My name is {upperCaseName} and I am {age} years old!</h1>
 <button on:click={incrementAge}>Increment Age</button>
-<!-- <button on:click="{changeName}">Change Name</button> -->
-<!-- <input type="text" value={name} on:input={nameInput} /> -->
 <input type="text" bind:value={name} />
+<input type="text" bind:value={job} />
+<input type="text" bind:value={image} />
+<textarea rows="3" bind:value={description} />
 
-<ContactCard userName={name} />
+<ContactCard
+  userName={name}
+  {age}
+  jobTitle={job}
+  {description}
+  imageURL={image}
+/>
 
 <style>
   h1 {
