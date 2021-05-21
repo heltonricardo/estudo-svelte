@@ -18,6 +18,7 @@
     </div>
   </header>
   <div class="description">
+    <!-- Anotação 01 -->
     <p>{description}</p>
   </div>
 </div>
@@ -75,3 +76,11 @@
     padding: 1rem;
   }
 </style>
+
+<!-- Anotação 01
+  Se por algum motivo quiséssemos que o valor inserido dentro de description
+  fosse tratado como HTML, bastaria escrever: <p>{@html description}</p>. Dessa
+  forma seria possível escrever código HTML dentro do campo. Cuidado ao usar
+  essa opção pois permite ataques como XSS (Cross-site scripting). Quando não
+  usamos essa flag, todo o conteúdo é "sanitarizado", tornando-se texto.
+-->
