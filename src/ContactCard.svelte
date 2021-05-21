@@ -9,7 +9,8 @@
 
 <div class="contact-card">
   <header>
-    <div class="thumb">
+    <!-- Anotação 01 -->
+    <div class="thumb" class:thumb-placeholder={!imageURL}>
       <img src={imageURL} alt={imageText} />
     </div>
     <div class="user-data">
@@ -18,7 +19,7 @@
     </div>
   </header>
   <div class="description">
-    <!-- Anotação 01 -->
+    <!-- Anotação 02 -->
     <p>{description}</p>
   </div>
 </div>
@@ -41,6 +42,10 @@
   .thumb {
     width: 33%;
     height: 100%;
+  }
+
+  .thumb-placeholder {
+    background: #ccc;
   }
 
   img {
@@ -77,7 +82,12 @@
   }
 </style>
 
-<!-- Anotação 01
+<!--
+  Anotação 01
+  class:uma_nova_classe={condição} permite ADICIONAR uma classe ao elemento caso
+  a condição seja verdadeira.
+  
+  Anotação 02
   Se por algum motivo quiséssemos que o valor inserido dentro de description
   fosse tratado como HTML, bastaria escrever: <p>{@html description}</p>. Dessa
   forma seria possível escrever código HTML dentro do campo. Cuidado ao usar
