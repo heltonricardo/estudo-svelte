@@ -2,9 +2,16 @@
 	let name = "Helton";
 	let age = 0;
 
-	// Variável reativa: altera seu valor assim que o valor atribuído é alterado \
-	// ou executado. Não é necessário declarar!
+	/* Variável reativa: altera seu valor assim que o valor atribuído é alterado
+	 * ou executado. Não é necessário declarar! O símbolo "$:" significa
+	 * basicamente: execute a operação assim que houver alguma modificação e/ou
+	 * execução.
+	*/
 	$: upperCaseName = name.toUpperCase();
+	$: console.log(name)
+	$: if (name == "Ricardo") {
+		age = 26;
+	}
 
 	function incrementAge() {
 		age += 1;
