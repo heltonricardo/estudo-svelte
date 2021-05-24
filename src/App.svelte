@@ -44,7 +44,7 @@
   }
 </script>
 
-<div id="form">
+<form id="form">
   <div class="form-control">
     <label for="userName">User Name</label>
     <input type="text" bind:value={name} id="userName" />
@@ -61,9 +61,10 @@
     <label for="desc">Description</label>
     <textarea rows="3" bind:value={description} id="desc" />
   </div>
-</div>
+  <!-- Anotação 02 -->
+  <button on:click|preventDefault={addContact}>Add Contact Card</button>
+</form>
 
-<button on:click={addContact}>Add Contact Card</button>
 <button on:click={deleteFirst}>Delete first</button>
 <button on:click={deleteLast}>Delete last</button>
 
@@ -73,7 +74,7 @@
   <p>Please enter some data and hit the button!</p>
 {/if}
 
-<!-- Anotação 02 -->
+<!-- Anotação 03 -->
 {#each createdContacts as contact, i (contact.id)}
   <h2># {i + 1}</h2>
   <ContactCard
@@ -94,6 +95,14 @@
   pontos) para atribuir "tudo o que já tem dentro do objeto" + o novo conteúdo.
 
   Anotação 02
+  É possível usar modificadores após o pipe. Seguem os mais conhecidos:
+  - preventDefault: impede o comportamento padrão do browser. Um botão no form
+  recarrega a página por padrão, por exemplo;
+  - stopPropagation: impede que o evento "suba" para o elemento pai na lista
+  hierárquica de elementos;
+  - once: permite que o evento aconteça somente uma vez.
+
+  Anotação 03
   Para que não haja problemas na renderização de componentes de arrays, é
   altamente recomendado criarmos uma chave única para para elemento. Nesse caso,
   para fins didáticos, usamos um número aleatório, mas deve-se sempre usar um
@@ -105,5 +114,6 @@
   #form {
     width: 30rem;
     max-width: 100%;
+    margin: 1rem 0;
   }
 </style>
