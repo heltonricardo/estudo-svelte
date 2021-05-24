@@ -20,9 +20,11 @@
       return;
     }
 
+    // Anotação 01
     createdContacts = [
       ...createdContacts,
       {
+        id: Math.random(),
         name,
         jogTitle: title,
         imageURL: image,
@@ -31,6 +33,14 @@
     ];
 
     formState = "done";
+  }
+
+  function deleteFirst() {
+    createdContacts = createdContacts.slice(1);
+  }
+
+  function deleteLast() {
+    createdContacts = createdContacts.slice(0, -1);
   }
 </script>
 
@@ -54,6 +64,8 @@
 </div>
 
 <button on:click={addContact}>Add Contact Card</button>
+<button on:click={deleteFirst}>Delete first</button>
+<button on:click={deleteLast}>Delete last</button>
 
 {#if formState === "invalid"}
   <p>Invalid input.</p>
@@ -61,8 +73,9 @@
   <p>Please enter some data and hit the button!</p>
 {/if}
 
-{#each createdContacts as contact, i}
-<h2># {i + 1}</h2>
+<!-- Anotação 02 -->
+{#each createdContacts as contact, i (contact.id)}
+  <h2># {i + 1}</h2>
   <ContactCard
     userName={contact.name}
     jobTitle={contact.jobTitle}
@@ -72,6 +85,21 @@
 {:else}
   <p>Please start adding some contacts, we found none!</p>
 {/each}
+
+<!--
+  Anotação 01
+  Para que seja possível renderizar os componentes de arrays em tempo real, é
+  necessário fazer a reatribuição desses componentes, e não usar funções prontas
+  do JS, como o push, por exemplo. Nesse caso usamos o spread operator (os três
+  pontos) para atribuir "tudo o que já tem dentro do objeto" + o novo conteúdo.
+
+  Anotação 02
+  Para que não haja problemas na renderização de componentes de arrays, é
+  altamente recomendado criarmos uma chave única para para elemento. Nesse caso,
+  para fins didáticos, usamos um número aleatório, mas deve-se sempre usar um
+  valor diferente para cada um dos elementos. A chave única vai entre parênteses
+  sempre no fim da instrução de iteração.
+-->
 
 <style>
   #form {
