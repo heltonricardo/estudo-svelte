@@ -1,25 +1,21 @@
 <script>
   export let userName;
-  export let age;
   export let jobTitle;
   export let description;
-  export let imageURL;
-  export let imageText = "Alternative text";
+  export let userImage;
 </script>
 
 <div class="contact-card">
   <header>
-    <!-- Anotação 01 -->
-    <div class="thumb" class:thumb-placeholder={!imageURL}>
-      <img src={imageURL} alt={imageText} />
+    <div class="thumb" class:thumb-placeholder={!userImage}>
+      <img src={userImage} alt={userName} />
     </div>
     <div class="user-data">
-      <h1>{userName}, {age}</h1>
+      <h1>{userName}</h1>
       <h2>{jobTitle}</h2>
     </div>
   </header>
   <div class="description">
-    <!-- Anotação 02 -->
     <p>{description}</p>
   </div>
 </div>
@@ -30,6 +26,7 @@
     max-width: 30rem;
     border-radius: 5px;
     margin: 1rem 0;
+    background: white;
   }
 
   header {
@@ -81,16 +78,3 @@
     padding: 1rem;
   }
 </style>
-
-<!--
-  Anotação 01
-  class:uma_nova_classe={condição} permite ADICIONAR uma classe ao elemento caso
-  a condição seja verdadeira.
-  
-  Anotação 02
-  Se por algum motivo quiséssemos que o valor inserido dentro de description
-  fosse tratado como HTML, bastaria escrever: <p>{@html description}</p>. Dessa
-  forma seria possível escrever código HTML dentro do campo. Cuidado ao usar
-  essa opção pois permite ataques como XSS (Cross-site scripting). Quando não
-  usamos essa flag, todo o conteúdo é "sanitarizado", tornando-se texto.
--->

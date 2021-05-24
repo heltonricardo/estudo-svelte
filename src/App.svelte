@@ -1,45 +1,36 @@
 <script>
   import ContactCard from "./ContactCard.svelte";
 
-  let name = "Helton";
-  let job = "Estagiário";
-  let description = "Estudando Svelte.js";
-  let image = "https://avatars.githubusercontent.com/u/50843386?v=4";
-  let age = 0;
-
-  /* Variável reativa: altera seu valor assim que o valor atribuído é alterado
-   * ou executado. Não é necessário declarar! O símbolo "$:" significa
-   * basicamente: execute a operação assim que houver alguma modificação e/ou
-   * execução.
-   */
-  $: upperCaseName = name.toUpperCase();
-  $: console.log(name);
-  $: if (name == "Ricardo") {
-    age = 26;
-  }
-
-  function incrementAge() {
-    age += 1;
-  }
+  let name = "";
+  let title = "";
+  let image = "";
+  let description = "";
 </script>
 
-<h1>My name is {upperCaseName} and I am {age} years old!</h1>
-<button on:click={incrementAge}>Increment Age</button>
-<input type="text" bind:value={name} />
-<input type="text" bind:value={job} />
-<input type="text" bind:value={image} />
-<textarea rows="3" bind:value={description} />
+<div id="form">
+  <div class="form-control">
+    <label for="userName">User Name</label>
+    <input type="text" bind:value={name} id="userName" />
+  </div>
+  <div class="form-control">
+    <label for="jobTitle">Job Title</label>
+    <input type="text" bind:value={title} id="jobTitle" />
+  </div>
+  <div class="form-control">
+    <label for="image">Image URL</label>
+    <input type="text" bind:value={image} id="image" />
+  </div>
+  <div class="form-control">
+    <label for="desc">Description</label>
+    <textarea rows="3" bind:value={description} id="desc" />
+  </div>
+</div>
 
-<ContactCard
-  userName={name}
-  {age}
-  jobTitle={job}
-  {description}
-  imageURL={image}
-/>
+<ContactCard userName={name} jobTitle={title} {description} userImage={image} />
 
 <style>
-  h1 {
-    color: purple;
+  #form {
+    width: 30rem;
+    max-width: 100%;
   }
 </style>
