@@ -1,6 +1,7 @@
 <script>
   import App from "../App.svelte";
-import Product from "./Product.svelte";
+  import Modal from "./Modal.svelte";
+  import Product from "./Product.svelte";
 
   let products = [
     {
@@ -27,3 +28,8 @@ import Product from "./Product.svelte";
     on:delete={deleteProduct}
   />
 {/each}
+
+<Modal>
+  <h1>Hi!</h1>
+  <p>This works!</p>
+</Modal>
