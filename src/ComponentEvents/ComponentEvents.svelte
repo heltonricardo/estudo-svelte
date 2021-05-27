@@ -30,6 +30,15 @@
 {/each}
 
 <Modal>
-  <h1>Hi!</h1>
+  <h1 slot="header">Hi!</h1>
+  <p>This works!</p>
+  <p>This works!</p>
+  <input slot="footer" type="text" name="" id="">
   <p>This works!</p>
 </Modal>
+
+<!-- 
+  É possível enviar conteúdo para o Modal em vários locais/slots diferentes no
+  mesmo. Todo o conteúdo que sem definição de um nome do slot destino será
+   enviado para o slot não nomeado dentro do Modal.
+ -->

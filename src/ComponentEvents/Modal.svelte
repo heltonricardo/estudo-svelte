@@ -22,9 +22,37 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
     overflow: scroll;
   }
+
+  header {
+    border-bottom: 1px solid #ccc;
+  }
 </style>
 
 <div class="backdrop" />
+
 <div class="modal">
-  <slot />
+  <header>
+    <slot name="header" />
+  </header>
+
+  <div class="content">
+    <slot />
+  </div>
+
+  <footer>
+    <slot name="footer">
+      <button>Close</button>
+    </slot>
+  </footer>
+
 </div>
+
+<!-- 
+  Os slots são usados para enviar conteúdo para um componente filho de uma
+  maneira diferente. Podendo-se enviar outros elementos para serem utilizados e
+  renderizados. Nesse exemplo, o nosso Modal é apenas um local para inserirmos
+  outros componentes. Podem existir n slots, porém apenas um pode ficar sem um
+  nome. Analisando o <footer> é possível perceber o uso de uma estrutura padrão
+  caso nenhuma propriedade/componente seja enviado para esse slot. Esse
+  conteúdo será substituido pelo conteúdo enviado, caso exista.
+ -->
