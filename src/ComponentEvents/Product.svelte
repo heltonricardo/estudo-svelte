@@ -16,7 +16,7 @@
   <!-- Anotação 03
   <button on:click>Add to Cart</button>  -->
   <button on:click={addToCart}>Add to Cart</button>
-  <button on:click={() => dispatch("delete")}>Delete</button>
+  <button on:click={() => dispatch("delete", "p1")}>Delete</button>
 </article>
 
 <!--
