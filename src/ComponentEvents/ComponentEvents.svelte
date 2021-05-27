@@ -4,6 +4,7 @@
 
 <Product
   productTitle="A Book"
-  on:click={() => alert("Clique simples!")}
   on:dblclick={() => alert("Duplo clique!")}
+  on:add-to-cart={() => alert("Add to cart!")}
+  on:delete={() => alert("Delete")}
 />
