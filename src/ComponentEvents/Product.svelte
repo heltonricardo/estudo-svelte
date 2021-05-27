@@ -3,7 +3,11 @@
   import { createEventDispatcher } from "svelte";
   const dispatch = createEventDispatcher();
 
-  export let productTitle;
+  export let title;
+  export let price;
+  
+  // Propriedade opcional:
+  export let bestseller = false;
 
   function addToCart() {
     // Anotação 02
@@ -12,9 +16,13 @@
 </script>
 
 <article on:dblclick>
-  <h1>{productTitle}</h1>
-  <!-- Anotação 03
-  <button on:click>Add to Cart</button>  -->
+  <h1>{title}</h1>
+  <h2>R$ {price}</h2>
+  {#if bestseller}
+    <h3>BESTSELLER</h3>
+  {/if}
+
+  <!-- Anotação 03 -->
   <button on:click={addToCart}>Add to Cart</button>
   <button on:click={() => dispatch("delete", "p1")}>Delete</button>
 </article>
@@ -28,10 +36,11 @@
   que pode ser um número, uma string ou um objeto, por exemplo.
 
   Anotação 03
-  Não atribuir algo ao "on:click" significa que não será o próprio componente o
-  responsável por lidar com esse evento. O evento será encaminhado/propadado.
-  Porém o evento é propagado apenas UM nível acima. Então o componente pai pode
-  "tratar" o evento ou apenas propagá-lo novamente. Nesse caso, não será
-  possível distinguir qual dos botões foi clicado (se ambos estiverem com o
-  evento de clique), se usarmos apenas os eventos pré-definidos.
+  Não atribuir algo ao "on:click", da seguinte maneira:
+  "<button on:click>Add to Cart</button>" significa que não será o próprio
+  componente o responsável por lidar com esse evento. O evento será
+  encaminhado/propadado. Porém o evento é propagado apenas UM nível acima. Então
+  o componente pai pode "tratar" o evento ou apenas propagá-lo novamente. Nesse
+  caso, não será possível distinguir qual dos botões foi clicado (se ambos
+  estiverem com o evento de clique), se usarmos apenas os eventos pré-definidos.
 -->
