@@ -1,4 +1,4 @@
-<!-- Descomente apenas o bloclo referente ao assunto a ser estudado. No VS Code
+<!-- Descomente apenas o bloco referente ao assunto a ser estudado. No VS Code
 utilize (Ctrl+K + Ctrl+C) para comentar/descomentar um bloco selecionado. -->
 
 <!-- <script>
