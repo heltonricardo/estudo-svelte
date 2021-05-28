@@ -1,8 +1,12 @@
-<!-- Descomente apenas as linhas referentes ao assunto a ser estudado -->
+<!-- Descomente apenas o bloclo referente ao assunto a ser estudado. No VS Code
+utilize (Ctrl+K + Ctrl+C) para comentar/descomentar um bloco selecionado. -->
+
+<!-- <script>
+  import Basic from "./Basic/Basic.svelte";
+</script>
+<Basic /> -->
+
 <script>
-  // import Basic from "./Basic/Basic.svelte";
   import ComponentEvents from "./ComponentEvents/ComponentEvents.svelte";
 </script>
-
-<!-- <Basic /> -->
 <ComponentEvents />
