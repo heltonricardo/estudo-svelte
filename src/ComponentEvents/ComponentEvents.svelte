@@ -1,6 +1,10 @@
 <script>
   import Modal from "./Modal.svelte";
   import Product from "./Product.svelte";
+  import { tick } from "svelte";
+  import { prevent_default } from "svelte/internal";
+
+  let text = "This is some dummy text!";
 
   let products = [
     {
@@ -18,6 +22,31 @@
 
   function deleteProduct(event) {
     console.log(event.detail);
+  }
+
+  function transform(event) {
+    if (event.keyCode !== 9) {
+      // TAB ASCII code: 9
+      return;
+    }
+    event.preventDefault(); // Impede o comportameto padrão "próximo elemento"
+    const selectionStart = event.target.selectionStart;
+    const selectionEnd = event.target.selectionEnd;
+    const value = event.target.value;
+
+    text =
+      value.slice(0, selectionStart) +
+      value.slice(selectionStart, selectionEnd).toUpperCase() +
+      value.slice(selectionEnd);
+
+    // Anotação 03
+    // event.target.selectionStart = selectionStart;
+    // event.target.selectionEnd = selectionEnd;
+    
+    tick().then(() => {
+      event.target.selectionStart = selectionStart;
+      event.target.selectionEnd = selectionEnd;
+    });
   }
 </script>
 
@@ -53,6 +82,9 @@
   </Modal>
 {/if}
 
+<!-- Anotação 03 -->
+<textarea rows="5" value={text} on:keydown={transform} />
+
 <!--
   Anotação 01
   É possível enviar conteúdo para o Modal em vários locais/slots diferentes no
@@ -67,4 +99,12 @@
   quisermos. Aqui, no componente pai, usamos NO COMPONENTE (e não no slot) a
   a declaração "let:didAgree={closeable}". Isso quer dizer que estamos usando
   "closeable" como um apelido para a variável que está no Modal.
+
+  Anotação 03
+  Simplesmente definir a nova seleção dentro da função, não fará com que
+  tenhamos o efeito desejado pois o "value={text}" da tag (a atualização do DOM)
+  só será executada na próxima micro-transação. Além disso, não é possível
+  utilizar afterUpdate() dentro de uma função. Usaremos o tick(). A função tick
+  retorna uma promessa que, quando for concluída, a próxima micro-transação será
+  executada.
 -->
