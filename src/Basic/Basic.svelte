@@ -26,7 +26,7 @@
       {
         id: Math.random(),
         name,
-        jogTitle: title,
+        jobTitle: title,
         imageURL: image,
         desc: description,
       },
