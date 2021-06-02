@@ -2,7 +2,6 @@
   import Modal from "./Modal.svelte";
   import Product from "./Product.svelte";
   import { tick } from "svelte";
-  import { prevent_default } from "svelte/internal";
 
   let text = "This is some dummy text!";
 
