@@ -6,7 +6,12 @@ utilize (Ctrl+K + Ctrl+C) para comentar/descomentar um bloco selecionado. -->
 </script>
 <Basic /> -->
 
-<script>
+<!-- <script>
   import ComponentEvents from "./ComponentEvents/ComponentEvents.svelte";
 </script>
-<ComponentEvents />
+<ComponentEvents /> -->
+
+<script>
+  import BindingsAndForms from "./BindingsAndForms/BindingsAndForms.svelte";
+</script>
+<BindingsAndForms />
