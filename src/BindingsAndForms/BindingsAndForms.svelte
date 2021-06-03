@@ -6,15 +6,24 @@
   let option = 2;
   let price = 0;
   let agreed = false;
-  let favColor = "blue";
-  let favColors = ["red", "green"];
+  let checkColor = "blue";
+  let radioColors = ["red", "green"];
+  let selectColor = "green";
+  let usernameInput;
 
-  $: console.log(appValue);
-  $: console.log(option);
-  $: console.log(price);
-  $: console.log(agreed);
-  $: console.log(favColor);
-  $: console.log(favColors);
+  $: console.log(`appValue: ${appValue}`);
+  $: console.log(`option: ${option}`);
+  $: console.log(`price: ${price}`);
+  $: console.log(`agreed: ${agreed}`);
+
+  $: console.log(`checkColor: ${checkColor}`);
+  $: console.log(`radioColors: ${radioColors}`);
+  $: console.log(`selectColor: ${selectColor}`);
+
+  function saveData() {
+    //console.log(document.querySelector("#username").value);
+    console.log(usernameInput);
+  }
 </script>
 
 <style>
@@ -24,12 +33,7 @@
 <CustomInput bind:componenteValue={appValue} />
 <Toggle bind:chosenOption={option} />
 
-<!-- Anotação 02
-<input
-  type="number"
-  value={price}
-  on:input={(event) => console.log(event.target.value)}
-/> -->
+<!-- Anotação 02 -->
 <input type="number" bind:value={price} />
 
 <label>
@@ -39,31 +43,45 @@
 
 <h1>Favorite Color?</h1>
 <label>
-  <input type="radio" name="colors" value="red" bind:group={favColor} />
+  <input type="radio" name="colors" value="red" bind:group={checkColor} />
   Red
 </label>
 <label>
-  <input type="radio" name="colors" value="green" bind:group={favColor} />
+  <input type="radio" name="colors" value="green" bind:group={checkColor} />
   Green
 </label>
 <label>
-  <input type="radio" name="colors" value="blue" bind:group={favColor} />
+  <input type="radio" name="colors" value="blue" bind:group={checkColor} />
   Blue
 </label>
 
 <h1>Favorite Color(s)?</h1>
 <label>
-  <input type="checkbox" name="colors" value="red" bind:group={favColors} />
+  <input type="checkbox" name="colors" value="red" bind:group={radioColors} />
   Red
 </label>
 <label>
-  <input type="checkbox" name="colors" value="green" bind:group={favColors} />
+  <input type="checkbox" name="colors" value="green" bind:group={radioColors} />
   Green
 </label>
 <label>
-  <input type="checkbox" name="colors" value="blue" bind:group={favColors} />
+  <input type="checkbox" name="colors" value="blue" bind:group={radioColors} />
   Blue
 </label>
+
+<h1>Favorite Color?</h1>
+<select bind:value={selectColor}>
+  <option value="red">Red</option>
+  <option value="green">Green</option>
+  <option value="blue">Blue</option>
+</select>
+
+<hr />
+
+<!-- Anotação 03 -->
+<!-- <input type="text" id="username" /> -->
+<input type="text" bind:this={usernameInput} />
+<button on:click={saveData}>Save</button>
 
 <!--
   Anotação 01
@@ -73,9 +91,16 @@
   cautela!
 
   Anotação 02
+  <input type="number" value={price}
+  on:input={(event) => console.log(event.target.value)} />
   Mesmo usando o type="number", o JS recebe isso como uma string, sempre como
   string. Nesse caso, number serve apenas para modificar o campo, acrescentando
   um controlador de incremendo e decremento. Usando o bind, o Svelte tentará
   converter automaticamente o campo, é possível verificar isso quando apagamos
   todos os números do input e, no console, aparece a mensagem "null" e não "".
+
+  Anotação 03
+  O bind:this cria um PONTEIRO para determinado elemento. É possível acessar
+  todas as propriedades, como no JS, usando ponteiro.value para acessar o valor,
+  por exemplo.
 -->
