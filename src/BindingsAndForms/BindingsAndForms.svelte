@@ -4,16 +4,21 @@
 
   let appValue = "Test";
   let option = 2;
-  let price;
+  let price = 0;
+  let agreed = false;
+  let favColor = "blue";
+  let favColors = ["red", "green"];
 
   $: console.log(appValue);
   $: console.log(option);
   $: console.log(price);
-
-  function setValue(event) {
-    appValue = event.target.value;
-  }
+  $: console.log(agreed);
+  $: console.log(favColor);
+  $: console.log(favColors);
 </script>
+
+<style>
+</style>
 
 <!-- Anotação 01 -->
 <CustomInput bind:componenteValue={appValue} />
@@ -26,6 +31,39 @@
   on:input={(event) => console.log(event.target.value)}
 /> -->
 <input type="number" bind:value={price} />
+
+<label>
+  <input type="checkbox" bind:checked={agreed} />
+  Agree to terms?
+</label>
+
+<h1>Favorite Color?</h1>
+<label>
+  <input type="radio" name="colors" value="red" bind:group={favColor} />
+  Red
+</label>
+<label>
+  <input type="radio" name="colors" value="green" bind:group={favColor} />
+  Green
+</label>
+<label>
+  <input type="radio" name="colors" value="blue" bind:group={favColor} />
+  Blue
+</label>
+
+<h1>Favorite Color(s)?</h1>
+<label>
+  <input type="checkbox" name="colors" value="red" bind:group={favColors} />
+  Red
+</label>
+<label>
+  <input type="checkbox" name="colors" value="green" bind:group={favColors} />
+  Green
+</label>
+<label>
+  <input type="checkbox" name="colors" value="blue" bind:group={favColors} />
+  Blue
+</label>
 
 <!--
   Anotação 01

@@ -43,7 +43,7 @@ button:disabled {
   box-shadow: none;
 }
 
-input,
+input[type=text], input[type=number],
 textarea {
   display: block;
   width: 100%;
