@@ -1,6 +1,7 @@
 <script>
   import CustomInput from "./CustomInput.svelte";
   import Toggle from "./Toggle.svelte";
+  import { isValidEmail } from "./validation";
 
   let appValue = "Test";
   let option = 2;
@@ -10,6 +11,8 @@
   let radioColors = ["red", "green"];
   let selectColor = "green";
   let usernameInput;
+  let enteredEmail = "";
+  let formIsValid;
 
   $: console.log(`appValue: ${appValue}`);
   $: console.log(`option: ${option}`);
@@ -20,6 +23,12 @@
   $: console.log(`radioColors: ${radioColors}`);
   $: console.log(`selectColor: ${selectColor}`);
 
+  $: if (isValidEmail(enteredEmail)) {
+    formIsValid = true;
+  } else {
+    formIsValid = false;
+  }
+
   function saveData() {
     //console.log(document.querySelector("#username").value);
     console.log(usernameInput);
@@ -27,6 +36,9 @@
 </script>
 
 <style>
+  .invalid {
+    background-color: darkred;
+  }
 </style>
 
 <!-- Anotação 01 -->
@@ -82,6 +94,17 @@
 <!-- <input type="text" id="username" /> -->
 <input type="text" bind:this={usernameInput} />
 <button on:click={saveData}>Save</button>
+
+<hr />
+
+<form on:submit|preventDefault>
+  <input
+    type="email"
+    bind:value={enteredEmail}
+    class={isValidEmail(enteredEmail) ? "" : "invalid"}
+  />
+  <button type="submit" disabled={!formIsValid}>Save</button>
+</form>
 
 <!--
   Anotação 01
