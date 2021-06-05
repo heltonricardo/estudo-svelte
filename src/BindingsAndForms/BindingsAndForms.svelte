@@ -41,6 +41,8 @@
   }
 </style>
 
+<br /><br /><br />
+
 <!-- Anotação 01 -->
 <CustomInput bind:componenteValue={appValue} />
 <Toggle bind:chosenOption={option} />
