@@ -1,9 +1,13 @@
 <script>
   import CartItem from "./CartItem.svelte";
   import cartItems from "../Cart/cart-store";
+  import { onDestroy } from "svelte";
 
   let items;
-  cartItems.subscribe((store) => items = store);
+  // Anotação 01
+  const unsubscribe = cartItems.subscribe((store) => (items = store));
+
+  onDestroy(() => unsubscribe());
 </script>
 
 <style>
@@ -31,3 +35,19 @@
     {/each}
   </ul>
 </section>
+
+<!--
+  Anotação 01
+  A função subscribe é executada sempre que ocorre uma alteração nos dados da
+  store. Em nosso exemplo existe um botão que permite ocultar e mostrar os itens
+  em nosso carrinho. Como a função subscribe está dentro do carrinho, sempre que
+  ele é mostrado, é criada uma nova função subscribe, o que poderá sobrecarregar
+  a aplicação a longo prazo pois, quando o carrinho é mostrado, todas as funções
+  subscribe dele serão executadas. Para que isso nao ocorra, devemos limpar as
+  assinaturas tão logo o componente não mais exista. Para isso utilizamos o
+  retorno da própria função subscribe, cuja qual é uma outra função que usaremos
+  para o nosso propósito dentro do onDestroy (quando o componente é destruído do
+  DOM). A função pode ter qualquer nome, mas sempre prefira um sugestivo. A
+  condição de existência dentro de onDestroy é um bom hábito apenas para evitar
+  eventuais erros, já que a função unsubscribe provavelmente existirá.
+-->
