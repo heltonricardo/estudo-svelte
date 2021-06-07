@@ -1,17 +1,17 @@
 <script>
   import CartItem from "./CartItem.svelte";
   import cartItems from "../Cart/cart-store";
+  
+  /* Anotação 01
   import { onDestroy } from "svelte";
-
   let items;
-  // Anotação 01
   const unsubscribe = cartItems.subscribe((store) => (items = store));
 
   onDestroy(() => {
     if (unsubscribe) {
       unsubscribe();
     }
-  });
+  }); */
 </script>
 
 <style>
@@ -32,7 +32,8 @@
 <section>
   <h1>Cart</h1>
   <ul>
-    {#each items as item (item.id)}
+    <!-- Anotação 02 -->
+    {#each $cartItems as item (item.id)}
       <CartItem id={item.id} title={item.title} price={item.price} />
     {:else}
       <p>No items in cart yet!</p>
@@ -54,4 +55,13 @@
   DOM). A função pode ter qualquer nome, mas sempre prefira um sugestivo. A
   condição de existência dentro de onDestroy é um bom hábito apenas para evitar
   eventuais erros, já que a função unsubscribe provavelmente existirá.
+
+  Anotação 02
+  Quando precisamos apenas receber os dados de uma store e exibí-los na tela,
+  temos um atalho providenciado pelo Svelte. É possível usar diretamente
+  "$nome-da-store" para que todo o trabalho de subscribe, extração e uso dos
+  dados e unsubscribe seja feito automaticamente. Porém, é importante saber os
+  conceitos pois, em muitos casos, precisamos tratar os dados antes de exibí-los
+  na tela. Portanto, as variáveis que começam com um cifrão são sempre
+  entendidas como stores pelo Svelte.
 -->

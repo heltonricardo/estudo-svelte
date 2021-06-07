@@ -33,6 +33,21 @@ var app = (function () {
     function is_empty(obj) {
         return Object.keys(obj).length === 0;
     }
+    function validate_store(store, name) {
+        if (store != null && typeof store.subscribe !== 'function') {
+            throw new Error(`'${name}' is not a store with a 'subscribe' method`);
+        }
+    }
+    function subscribe(store, ...callbacks) {
+        if (store == null) {
+            return noop;
+        }
+        const unsub = store.subscribe(...callbacks);
+        return unsub.unsubscribe ? () => unsub.unsubscribe() : unsub;
+    }
+    function component_subscribe(component, store, callback) {
+        component.$$.on_destroy.push(subscribe(store, callback));
+    }
     function create_slot(definition, ctx, $$scope, fn) {
         if (definition) {
             const slot_ctx = get_slot_context(definition, ctx, $$scope, fn);
@@ -4093,11 +4108,11 @@ var app = (function () {
 
     function get_each_context$1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[2] = list[i];
+    	child_ctx[1] = list[i];
     	return child_ctx;
     }
 
-    // (37:4) {:else}
+    // (38:4) {:else}
     function create_else_block(ctx) {
     	let p;
 
@@ -4105,7 +4120,7 @@ var app = (function () {
     		c: function create() {
     			p = element("p");
     			p.textContent = "No items in cart yet!";
-    			add_location(p, file$3, 37, 6, 679);
+    			add_location(p, file$3, 38, 6, 714);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -4119,14 +4134,14 @@ var app = (function () {
     		block,
     		id: create_else_block.name,
     		type: "else",
-    		source: "(37:4) {:else}",
+    		source: "(38:4) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (35:4) {#each items as item (item.id)}
+    // (36:4) {#each $cartItems as item (item.id)}
     function create_each_block$1(key_1, ctx) {
     	let first;
     	let cartitem;
@@ -4134,9 +4149,9 @@ var app = (function () {
 
     	cartitem = new CartItem({
     			props: {
-    				id: /*item*/ ctx[2].id,
-    				title: /*item*/ ctx[2].title,
-    				price: /*item*/ ctx[2].price
+    				id: /*item*/ ctx[1].id,
+    				title: /*item*/ ctx[1].title,
+    				price: /*item*/ ctx[1].price
     			},
     			$$inline: true
     		});
@@ -4157,9 +4172,9 @@ var app = (function () {
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
     			const cartitem_changes = {};
-    			if (dirty & /*items*/ 1) cartitem_changes.id = /*item*/ ctx[2].id;
-    			if (dirty & /*items*/ 1) cartitem_changes.title = /*item*/ ctx[2].title;
-    			if (dirty & /*items*/ 1) cartitem_changes.price = /*item*/ ctx[2].price;
+    			if (dirty & /*$cartItems*/ 1) cartitem_changes.id = /*item*/ ctx[1].id;
+    			if (dirty & /*$cartItems*/ 1) cartitem_changes.title = /*item*/ ctx[1].title;
+    			if (dirty & /*$cartItems*/ 1) cartitem_changes.price = /*item*/ ctx[1].price;
     			cartitem.$set(cartitem_changes);
     		},
     		i: function intro(local) {
@@ -4181,7 +4196,7 @@ var app = (function () {
     		block,
     		id: create_each_block$1.name,
     		type: "each",
-    		source: "(35:4) {#each items as item (item.id)}",
+    		source: "(36:4) {#each $cartItems as item (item.id)}",
     		ctx
     	});
 
@@ -4196,9 +4211,9 @@ var app = (function () {
     	let each_blocks = [];
     	let each_1_lookup = new Map();
     	let current;
-    	let each_value = /*items*/ ctx[0];
+    	let each_value = /*$cartItems*/ ctx[0];
     	validate_each_argument(each_value);
-    	const get_key = ctx => /*item*/ ctx[2].id;
+    	const get_key = ctx => /*item*/ ctx[1].id;
     	validate_each_keys(ctx, each_value, get_each_context$1, get_key);
 
     	for (let i = 0; i < each_value.length; i += 1) {
@@ -4229,11 +4244,11 @@ var app = (function () {
     				each_1_else.c();
     			}
 
-    			add_location(h1, file$3, 32, 2, 534);
+    			add_location(h1, file$3, 32, 2, 539);
     			attr_dev(ul, "class", "svelte-1c2znv1");
-    			add_location(ul, file$3, 33, 2, 550);
+    			add_location(ul, file$3, 33, 2, 555);
     			attr_dev(section, "class", "svelte-1c2znv1");
-    			add_location(section, file$3, 31, 0, 522);
+    			add_location(section, file$3, 31, 0, 527);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -4255,8 +4270,8 @@ var app = (function () {
     			current = true;
     		},
     		p: function update(ctx, [dirty]) {
-    			if (dirty & /*items*/ 1) {
-    				each_value = /*items*/ ctx[0];
+    			if (dirty & /*$cartItems*/ 1) {
+    				each_value = /*$cartItems*/ ctx[0];
     				validate_each_argument(each_value);
     				group_outros();
     				validate_each_keys(ctx, each_value, get_each_context$1, get_key);
@@ -4314,42 +4329,19 @@ var app = (function () {
     }
 
     function instance$4($$self, $$props, $$invalidate) {
+    	let $cartItems;
+    	validate_store(cart, "cartItems");
+    	component_subscribe($$self, cart, $$value => $$invalidate(0, $cartItems = $$value));
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots("Cart", slots, []);
-    	let items;
-
-    	// Anotação 01
-    	const unsubscribe = cart.subscribe(store => $$invalidate(0, items = store));
-
-    	onDestroy(() => {
-    		if (unsubscribe) {
-    			unsubscribe();
-    		}
-    	});
-
     	const writable_props = [];
 
     	Object.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<Cart> was created with unknown prop '${key}'`);
     	});
 
-    	$$self.$capture_state = () => ({
-    		CartItem,
-    		cartItems: cart,
-    		onDestroy,
-    		items,
-    		unsubscribe
-    	});
-
-    	$$self.$inject_state = $$props => {
-    		if ("items" in $$props) $$invalidate(0, items = $$props.items);
-    	};
-
-    	if ($$props && "$$inject" in $$props) {
-    		$$self.$inject_state($$props.$$inject);
-    	}
-
-    	return [items];
+    	$$self.$capture_state = () => ({ CartItem, cartItems: cart, $cartItems });
+    	return [$cartItems];
     }
 
     class Cart extends SvelteComponentDev {
