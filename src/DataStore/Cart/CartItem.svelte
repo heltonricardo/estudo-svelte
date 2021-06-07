@@ -1,15 +1,22 @@
 <script>
   import Button from "../UI/Button.svelte";
   import cartItems from "../Cart/cart-store";
+  import products from "../Products/product-store";
 
   export let title;
   export let price;
   export let id;
 
   let showDescription = false;
+  let description = "Not available!";
 
   function displayDescription() {
     showDescription = !showDescription;
+    // Anotação 01
+    const unsubscribe = products.subscribe((prods) => {
+      description = prods.find((p) => p.id === id).description;
+    });
+    unsubscribe();
   }
 
   function removeFromCart(id) {
@@ -48,6 +55,12 @@
   </Button>
   <Button on:click={removeFromCart(id)}>Remove from Cart</Button>
   {#if showDescription}
-    <p>Not available :(</p>
+    <p>{description}</p>
   {/if}
 </li>
+
+<!--
+  Anotação 01
+  Demonstração do uso de subscribe e unsubscribe temporários de uma loja para
+  usar os dados extraídos apenas uma vez.
+-->
