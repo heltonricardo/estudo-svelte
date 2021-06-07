@@ -7,7 +7,11 @@
   // Anotação 01
   const unsubscribe = cartItems.subscribe((store) => (items = store));
 
-  onDestroy(() => unsubscribe());
+  onDestroy(() => {
+    if (unsubscribe) {
+      unsubscribe();
+    }
+  });
 </script>
 
 <style>

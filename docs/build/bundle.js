@@ -4097,7 +4097,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (33:4) {:else}
+    // (37:4) {:else}
     function create_else_block(ctx) {
     	let p;
 
@@ -4105,7 +4105,7 @@ var app = (function () {
     		c: function create() {
     			p = element("p");
     			p.textContent = "No items in cart yet!";
-    			add_location(p, file$3, 33, 6, 637);
+    			add_location(p, file$3, 37, 6, 679);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -4119,14 +4119,14 @@ var app = (function () {
     		block,
     		id: create_else_block.name,
     		type: "else",
-    		source: "(33:4) {:else}",
+    		source: "(37:4) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (31:4) {#each items as item (item.id)}
+    // (35:4) {#each items as item (item.id)}
     function create_each_block$1(key_1, ctx) {
     	let first;
     	let cartitem;
@@ -4181,7 +4181,7 @@ var app = (function () {
     		block,
     		id: create_each_block$1.name,
     		type: "each",
-    		source: "(31:4) {#each items as item (item.id)}",
+    		source: "(35:4) {#each items as item (item.id)}",
     		ctx
     	});
 
@@ -4229,11 +4229,11 @@ var app = (function () {
     				each_1_else.c();
     			}
 
-    			add_location(h1, file$3, 28, 2, 492);
+    			add_location(h1, file$3, 32, 2, 534);
     			attr_dev(ul, "class", "svelte-1c2znv1");
-    			add_location(ul, file$3, 29, 2, 508);
+    			add_location(ul, file$3, 33, 2, 550);
     			attr_dev(section, "class", "svelte-1c2znv1");
-    			add_location(section, file$3, 27, 0, 480);
+    			add_location(section, file$3, 31, 0, 522);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -4321,7 +4321,12 @@ var app = (function () {
     	// Anotação 01
     	const unsubscribe = cart.subscribe(store => $$invalidate(0, items = store));
 
-    	onDestroy(() => unsubscribe());
+    	onDestroy(() => {
+    		if (unsubscribe) {
+    			unsubscribe();
+    		}
+    	});
+
     	const writable_props = [];
 
     	Object.keys($$props).forEach(key => {
