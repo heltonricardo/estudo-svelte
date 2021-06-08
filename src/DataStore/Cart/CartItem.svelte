@@ -19,10 +19,8 @@
     unsubscribe();
   }
 
-  function removeFromCart(id) {
-    cartItems.update((items) => {
-      return items.filter((item) => item.id !== id);
-    });
+  function removeFromCart() {
+    cartItems.removeItem(id);
   }
 </script>
 
@@ -53,7 +51,7 @@
   <Button mode="outline" on:click={displayDescription}>
     {showDescription ? "Hide Description" : "Show Description"}
   </Button>
-  <Button on:click={removeFromCart(id)}>Remove from Cart</Button>
+  <Button on:click={removeFromCart}>Remove from Cart</Button>
   {#if showDescription}
     <p>{description}</p>
   {/if}
