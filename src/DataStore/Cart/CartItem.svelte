@@ -14,7 +14,10 @@
     showDescription = !showDescription;
     // Anotação 01
     const unsubscribe = products.subscribe((prods) => {
-      description = prods.find((p) => p.id === id).description;
+      const prod = prods.find((p) => p.id === id);
+      if (typeof prod !== "undefined" && prod.hasOwnProperty("description")) {
+        description = prod.description;
+      }
     });
     unsubscribe();
   }
