@@ -1,4 +1,5 @@
 <script>
+  import { spring } from "svelte/motion";
   import { writable } from "svelte/store";
 
   let cards = writable([
@@ -19,24 +20,31 @@
       color: "orange",
     },
   ]);
-  let cardPos = writable([
+  let cardPos = spring(
+    [
+      {
+        rotation: 0,
+        dx: 0,
+      },
+      {
+        rotation: -10,
+        dx: 0,
+      },
+      {
+        rotation: 19,
+        dx: 0,
+      },
+      {
+        rotation: -25,
+        dx: 0,
+      },
+    ],
     {
-      rotation: 10,
-      dx: 0,
-    },
-    {
-      rotation: -10,
-      dx: 0,
-    },
-    {
-      rotation: 19,
-      dx: 0,
-    },
-    {
-      rotation: -25,
-      dx: 0,
-    },
-  ]);
+      stiffness: 0.05,
+      damping: 0.9,
+      precision: 0.001
+    }
+  );
 
   function discard(index) {
     cardPos.update((items) => {
@@ -83,3 +91,19 @@
     {/each}
   </div>
 </div>
+
+<!--
+  Esse componente possui duas writable store. As contém informações sobre alguns
+  cards que são renderizados na tela. Os dados foram separados dessa forma para
+  que a segunda store seja composta por objetos que só possuem números, com isso
+  conseguiremos adicionar animações com tweened. Porém usaremos a spring, outra
+  store, semelhante à tweened, porém que não é linear, pois leva em consideração
+  a física (spring, além de primavera, é mola em inglês). Seu segundo parâmetro
+  é um objeto de configuração com algumas propriedades:
+  - stiffness: rigidez - valor entre 0 e 1, quanto maior o valor, mais apertada
+    ficará a mola.
+  - damping: amortecimento - valor entre 0 e 1, quanto menor o valor, mais
+    elástica ficará a mola.
+  - precision: precisão - limite no qual a mola é considerada em repouso. Quanto
+    menor o valor, mais preciso será.
+-->

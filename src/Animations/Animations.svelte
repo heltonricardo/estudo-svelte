@@ -1,6 +1,7 @@
 <script>
   import { tweened } from "svelte/motion";
   import { cubicIn } from "svelte/easing";
+import Spring from "./Spring.svelte";
 
   // Anotação 01
   const progress = tweened(0, {
@@ -16,11 +17,13 @@
 
 <progress value={$progress} />
 
+<Spring />
+
 <!--
   Anotação 01
   Tweened é um tipo de writable store que também faz animações quando os dados
-  são alterados. Esses dados podem ser números, datas, matrizes e objetos de
-  com números ou datas. O primeiro parâmetro é o valor da store, como em uma
+  são alterados. Esses dados podem ser números, datas e matrizes/objetos com
+  números ou datas. O primeiro parâmetro é o valor da store, como em uma
   writable comum, nesse exemplo usamos o número 0 para representar 0% em uma
   barra de progresso, o valor 1 significará 100%. O segundo parâmetro é um
   objeto de configuração da tweened:
