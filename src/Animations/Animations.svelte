@@ -2,6 +2,7 @@
   import { tweened } from "svelte/motion";
   import { cubicIn } from "svelte/easing";
   import { fade, fly, slide, scale } from "svelte/transition";
+  import { flip } from "svelte/animate";
   import Spring from "./Spring.svelte";
 
   let boxes = [];
@@ -60,8 +61,8 @@
 <input type="text" bind:value={boxInput} />
 <button on:click={addBox}>Add</button>
 {#if show}
-  {#each boxes as box}
-    <!-- Anotação 02 -->
+  <!-- Anotação 02 -->
+  {#each boxes as box (box)}
     <div
       in:fly|local={{ x: -200, duration: 2000 }}
       out:fade
@@ -70,6 +71,7 @@
       on:introend={() => console.log("Adding the element ends...")}
       on:outrostart={() => console.log("Removing the element starts...")}
       on:outroend={() => console.log("Removing the element ends...")}
+      animate:flip
     >
       {box}
     </div>
@@ -112,4 +114,8 @@
   Usando transition:nome_transicao é aplicado o mesmo efeito para entrada e
   saída do elemento na tela. Mas podemos definir transições diferentes usando
   "in:" e "out:" seguidos do nome da transição.
+
+  Para adicionar animação passiva, isso é, de elementos afetados por outros, por
+  exemplo, quando um elemento é excluído, como os outros items da lista se
+  comportam, usamos o flip (First, Last, Invert, Play) na propriedade "animate".
 -->
