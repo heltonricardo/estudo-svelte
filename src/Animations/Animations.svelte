@@ -6,6 +6,7 @@
 
   let boxes = [];
   let boxInput;
+  let show = false;
 
   // Anotação 01
   const progress = tweened(0, {
@@ -23,7 +24,7 @@
   }
 
   function discard(box) {
-    boxes = boxes.filter((m) => m !== box)
+    boxes = boxes.filter((m) => m !== box);
   }
 </script>
 
@@ -37,17 +38,42 @@
     border-radius: 8px;
     padding: 1rem;
   }
+
+  progress {
+    display: block;
+    margin-bottom: 5rem;
+  }
+
+  input {
+    margin-top: 5rem;
+  }
 </style>
 
 <progress value={$progress} />
 <!-- <Spring /> -->
+
+<button on:click={() => (show = !show)}>Toggle</button>
+{#if show}
+  <p transition:slide>Now you see me</p>
+{/if}
+
 <input type="text" bind:value={boxInput} />
 <button on:click={addBox}>Add</button>
-
-{#each boxes as box}
-  <!-- Anotação 02 -->
-  <div transition:fly={{x: -200}} on:click={discard(box)}>{box}</div>
-{/each}
+{#if show}
+  {#each boxes as box}
+    <!-- Anotação 02 -->
+    <div
+      transition:fly|local={{ x: -200, duration: 2000 }}
+      on:click={discard(box)}
+      on:introstart={() => console.log("Adding the element starts...")}
+      on:introend={() => console.log("Adding the element ends...")}
+      on:outrostart={() => console.log("Removing the element starts...")}
+      on:outroend={() => console.log("Removing the element ends...")}
+    >
+      {box}
+    </div>
+  {/each}
+{/if}
 
 <!--
   Anotação 01
@@ -74,4 +100,9 @@
   - slide: permite delay, duration e easing;
   - scale: permite delay, duration, easing, start e opacity;
   - fly: permite delay, duration, easing, opacity, x e y.
+  O modificador "local" permite restringir a transição apenas para o elemento
+  que está sendo adicionado e não para toda a lista, no exemplo.
+  Também é possível executar ações no início e término do aparecimento e
+  desaparecimento do elemento através dos eventos: introstart, introend,
+  outrostart e outroend.
 -->
