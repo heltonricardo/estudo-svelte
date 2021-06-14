@@ -6,7 +6,6 @@
   import Animations from "./Animations/Animations.svelte";
 
   let option = 5;
-  $: console.log(option);
 </script>
 
 <style>

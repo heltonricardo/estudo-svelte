@@ -60,7 +60,7 @@
 
 <style>
   .page {
-    position: fixed;
+    /* position: fixed; */
     left: 0;
     top: 0;
     width: 100%;

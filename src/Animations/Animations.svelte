@@ -1,7 +1,10 @@
 <script>
   import { tweened } from "svelte/motion";
   import { cubicIn } from "svelte/easing";
-import Spring from "./Spring.svelte";
+  import Spring from "./Spring.svelte";
+
+  let boxes = [];
+  let boxInput;
 
   // Anotação 01
   const progress = tweened(0, {
@@ -13,11 +16,32 @@ import Spring from "./Spring.svelte";
   setTimeout(() => {
     progress.set(0.5);
   }, 1500);
+
+  function addBox() {
+    boxes = [...boxes, boxInput];
+  }
 </script>
 
-<progress value={$progress} />
+<style>
+  div {
+    width: 10rem;
+    height: 10rem;
+    background: #ccc;
+    margin: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+    border-radius: 8PX;
+    padding: 1rem;
+  }
+</style>
 
-<Spring />
+<progress value={$progress} />
+<!-- <Spring /> -->
+<input type="text" bind:value={boxInput} />
+<button on:click={addBox}>Add</button>
+
+{#each boxes as box}
+  <div>{box}</div>
+{/each}
 
 <!--
   Anotação 01
