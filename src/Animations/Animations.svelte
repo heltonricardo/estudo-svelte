@@ -1,6 +1,7 @@
 <script>
   import { tweened } from "svelte/motion";
   import { cubicIn } from "svelte/easing";
+  import { fade, fly, slide, scale } from "svelte/transition";
   import Spring from "./Spring.svelte";
 
   let boxes = [];
@@ -20,6 +21,10 @@
   function addBox() {
     boxes = [...boxes, boxInput];
   }
+
+  function discard(box) {
+    boxes = boxes.filter((m) => m !== box)
+  }
 </script>
 
 <style>
@@ -29,7 +34,7 @@
     background: #ccc;
     margin: 1rem;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
-    border-radius: 8PX;
+    border-radius: 8px;
     padding: 1rem;
   }
 </style>
@@ -40,7 +45,8 @@
 <button on:click={addBox}>Add</button>
 
 {#each boxes as box}
-  <div>{box}</div>
+  <!-- Anotação 02 -->
+  <div transition:fly={{x: -200}} on:click={discard(box)}>{box}</div>
 {/each}
 
 <!--
@@ -57,4 +63,15 @@
     funções disponibilizadas pelo Svelte. É possível acessar os protótipos em:
     node_modules > svelte > types > runtime > easing > index.ts. A função
     CubicIn faz com que o final da animação seja mais rápido que o começo.
+
+  Anotação 02
+  Motion é basicamente a animação de valores, enquanto que Transitions são
+  animações de aparecimento e desaparecimento. Basta adicionar, à tag HTML, o
+  nome da transition. Algumas transições permitem parâmetros e outras precisam
+  deles para funcionar corretamente. Elas devem ser enviadas através de um
+  objeto de configuração comum do Javascript:
+  - fade: permite delay e duration;
+  - slide: permite delay, duration e easing;
+  - scale: permite delay, duration, easing, start e opacity;
+  - fly: permite delay, duration, easing, opacity, x e y.
 -->
