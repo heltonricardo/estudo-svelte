@@ -4,7 +4,8 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "start": "sirv docs"
+    "start": "sirv docs",
+    "deploy": "git subtree push --prefix docs origin gh-pages"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^16.0.0",
