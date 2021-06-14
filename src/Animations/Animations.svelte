@@ -21,7 +21,8 @@
   }, 1500);
 
   function addBox() {
-    boxes = [...boxes, boxInput];
+    if (boxInput && !boxes.find((b) => b === boxInput))
+      boxes = [...boxes, boxInput];
   }
 
   function discard(box) {
@@ -51,7 +52,6 @@
 </style>
 
 <progress value={$progress} />
-<!-- <Spring /> -->
 
 <button on:click={() => (show = !show)}>Toggle</button>
 {#if show}
@@ -78,6 +78,7 @@
   {/each}
 {/if}
 
+<Spring />
 <!--
   Anotação 01
   Tweened é um tipo de writable store que também faz animações quando os dados

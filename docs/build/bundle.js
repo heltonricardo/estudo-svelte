@@ -5863,7 +5863,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (84:4) {#each $cards as card, i (card.id)}
+    // (83:4) {#each $cards as card, i (card.id)}
     function create_each_block$1(key_1, ctx) {
     	let div;
     	let mounted;
@@ -5874,10 +5874,10 @@ var app = (function () {
     		first: null,
     		c: function create() {
     			div = element("div");
-    			attr_dev(div, "class", "card svelte-2mevr");
+    			attr_dev(div, "class", "card svelte-erjpni");
     			set_style(div, "background", /*card*/ ctx[5].color);
     			set_style(div, "transform", "rotateZ(" + /*$cardPos*/ ctx[1][/*i*/ ctx[7]].rotation + "deg) translateX(" + /*$cardPos*/ ctx[1][/*i*/ ctx[7]].dx + "px)");
-    			add_location(div, file$2, 84, 6, 1450);
+    			add_location(div, file$2, 83, 6, 1425);
     			this.first = div;
     		},
     		m: function mount(target, anchor) {
@@ -5920,7 +5920,7 @@ var app = (function () {
     		block,
     		id: create_each_block$1.name,
     		type: "each",
-    		source: "(84:4) {#each $cards as card, i (card.id)}",
+    		source: "(83:4) {#each $cards as card, i (card.id)}",
     		ctx
     	});
 
@@ -5953,9 +5953,9 @@ var app = (function () {
     			}
 
     			attr_dev(div0, "class", "cards");
-    			add_location(div0, file$2, 82, 2, 1384);
-    			attr_dev(div1, "class", "page svelte-2mevr");
-    			add_location(div1, file$2, 81, 0, 1363);
+    			add_location(div0, file$2, 81, 2, 1359);
+    			attr_dev(div1, "class", "page svelte-erjpni");
+    			add_location(div1, file$2, 80, 0, 1338);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -6105,7 +6105,7 @@ var app = (function () {
     		c: function create() {
     			p = element("p");
     			p.textContent = "Now you see me";
-    			add_location(p, file$1, 57, 2, 1084);
+    			add_location(p, file$1, 57, 2, 1122);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -6246,7 +6246,7 @@ var app = (function () {
     			t0 = text(t0_value);
     			t1 = space();
     			attr_dev(div, "class", "svelte-ixlcf4");
-    			add_location(div, file$1, 65, 4, 1288);
+    			add_location(div, file$1, 65, 4, 1326);
     			this.first = div;
     		},
     		m: function mount(target, anchor) {
@@ -6339,12 +6339,14 @@ var app = (function () {
     	let t4;
     	let button1;
     	let t6;
-    	let if_block1_anchor;
+    	let t7;
+    	let spring;
     	let current;
     	let mounted;
     	let dispose;
     	let if_block0 = /*show*/ ctx[2] && create_if_block_1$1(ctx);
     	let if_block1 = /*show*/ ctx[2] && create_if_block$1(ctx);
+    	spring = new Spring({ $$inline: true });
 
     	const block = {
     		c: function create() {
@@ -6361,15 +6363,16 @@ var app = (function () {
     			button1.textContent = "Add";
     			t6 = space();
     			if (if_block1) if_block1.c();
-    			if_block1_anchor = empty();
+    			t7 = space();
+    			create_component(spring.$$.fragment);
     			progress_1.value = /*$progress*/ ctx[3];
     			attr_dev(progress_1, "class", "svelte-ixlcf4");
-    			add_location(progress_1, file$1, 52, 0, 958);
-    			add_location(button0, file$1, 55, 0, 1013);
+    			add_location(progress_1, file$1, 53, 0, 1017);
+    			add_location(button0, file$1, 55, 0, 1051);
     			attr_dev(input, "type", "text");
     			attr_dev(input, "class", "svelte-ixlcf4");
-    			add_location(input, file$1, 60, 0, 1133);
-    			add_location(button1, file$1, 61, 0, 1178);
+    			add_location(input, file$1, 60, 0, 1171);
+    			add_location(button1, file$1, 61, 0, 1216);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -6387,7 +6390,8 @@ var app = (function () {
     			insert_dev(target, button1, anchor);
     			insert_dev(target, t6, anchor);
     			if (if_block1) if_block1.m(target, anchor);
-    			insert_dev(target, if_block1_anchor, anchor);
+    			insert_dev(target, t7, anchor);
+    			mount_component(spring, target, anchor);
     			current = true;
 
     			if (!mounted) {
@@ -6441,7 +6445,7 @@ var app = (function () {
     					if_block1 = create_if_block$1(ctx);
     					if_block1.c();
     					transition_in(if_block1, 1);
-    					if_block1.m(if_block1_anchor.parentNode, if_block1_anchor);
+    					if_block1.m(t7.parentNode, t7);
     				}
     			} else if (if_block1) {
     				group_outros();
@@ -6457,11 +6461,13 @@ var app = (function () {
     			if (current) return;
     			transition_in(if_block0);
     			transition_in(if_block1);
+    			transition_in(spring.$$.fragment, local);
     			current = true;
     		},
     		o: function outro(local) {
     			transition_out(if_block0);
     			transition_out(if_block1);
+    			transition_out(spring.$$.fragment, local);
     			current = false;
     		},
     		d: function destroy(detaching) {
@@ -6476,7 +6482,8 @@ var app = (function () {
     			if (detaching) detach_dev(button1);
     			if (detaching) detach_dev(t6);
     			if (if_block1) if_block1.d(detaching);
-    			if (detaching) detach_dev(if_block1_anchor);
+    			if (detaching) detach_dev(t7);
+    			destroy_component(spring, detaching);
     			mounted = false;
     			run_all(dispose);
     		}
@@ -6519,7 +6526,7 @@ var app = (function () {
     	);
 
     	function addBox() {
-    		$$invalidate(0, boxes = [...boxes, boxInput]);
+    		if (boxInput && !boxes.find(b => b === boxInput)) $$invalidate(0, boxes = [...boxes, boxInput]);
     	}
 
     	function discard(box) {
