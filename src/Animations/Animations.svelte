@@ -63,7 +63,8 @@
   {#each boxes as box}
     <!-- Anotação 02 -->
     <div
-      transition:fly|local={{ x: -200, duration: 2000 }}
+      in:fly|local={{ x: -200, duration: 2000 }}
+      out:fade
       on:click={discard(box)}
       on:introstart={() => console.log("Adding the element starts...")}
       on:introend={() => console.log("Adding the element ends...")}
@@ -100,9 +101,15 @@
   - slide: permite delay, duration e easing;
   - scale: permite delay, duration, easing, start e opacity;
   - fly: permite delay, duration, easing, opacity, x e y.
+  
   O modificador "local" permite restringir a transição apenas para o elemento
   que está sendo adicionado e não para toda a lista, no exemplo.
+
   Também é possível executar ações no início e término do aparecimento e
   desaparecimento do elemento através dos eventos: introstart, introend,
   outrostart e outroend.
+
+  Usando transition:nome_transicao é aplicado o mesmo efeito para entrada e
+  saída do elemento na tela. Mas podemos definir transições diferentes usando
+  "in:" e "out:" seguidos do nome da transição.
 -->
