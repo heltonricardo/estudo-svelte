@@ -1,7 +1,7 @@
 <script>
   import { onMount } from "svelte";
+  import hobbyStore from "./store";
 
-  let hobbies = [];
   let hobbyInput;
   let isLoading = false;
 
@@ -15,7 +15,7 @@
         return res.json();
       })
       .then((data) => {
-        hobbies = Object.values(data);
+        hobbyStore.setHobbies(Object.values(data));
       })
       .catch((err) => console.log(err))
       .then(() => {
@@ -25,7 +25,7 @@
   });
 
   function addHobby() {
-    if (hobbyInput.value && !hobbies.find((h) => h === hobbyInput.value)) {
+    if (hobbyInput.value && !$hobbyStore.find((h) => h === hobbyInput.value)) {
       isLoading = true;
 
       // Anotação 01
@@ -40,7 +40,7 @@
           if (!res.ok) {
             throw new Error("Failed!");
           }
-          hobbies = [...hobbies, hobbyInput.value];
+          hobbyStore.addHobby(hobbyInput.value);
           hobbyInput.value = "";
         })
         .catch((err) => console.log(err))
@@ -56,7 +56,7 @@
   ⚠️ Data from this page is dynamically entered by users. The author of this
   project assumes no responsibility for this content. ⚠️
 </p>
-<br>
+<br />
 
 <label for="hobby">Enter an item:</label>
 <input type="text" id="hobby" bind:this={hobbyInput} />
@@ -66,7 +66,7 @@
   <p>Loading...</p>
 {:else}
   <ul>
-    {#each hobbies as hobby (hobby)}
+    {#each $hobbyStore as hobby (hobby)}
       <li>{hobby}</li>
     {/each}
   </ul>
