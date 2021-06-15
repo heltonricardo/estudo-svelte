@@ -18,19 +18,20 @@
         hobbies = Object.values(data);
       })
       .catch((err) => console.log(err))
-      .then(() => (isLoading = false));
+      .then(() => {
+        isLoading = false;
+        hobbyInput.focus();
+      });
   });
 
   function addHobby() {
-    if (hobbyInput && !hobbies.find((h) => h === hobbyInput)) {
-      hobbies = [...hobbies, hobbyInput];
-
+    if (hobbyInput.value && !hobbies.find((h) => h === hobbyInput.value)) {
       isLoading = true;
 
       // Anotação 01
       fetch("https://meetus-3fe2d-default-rtdb.firebaseio.com/hobbies.json", {
         method: "POST",
-        body: JSON.stringify(hobbyInput),
+        body: JSON.stringify(hobbyInput.value),
         headers: {
           "Content-Type": "application/json",
         },
@@ -39,16 +40,20 @@
           if (!res.ok) {
             throw new Error("Failed!");
           }
-          // ...
+          hobbies = [...hobbies, hobbyInput.value];
+          hobbyInput.value = "";
         })
         .catch((err) => console.log(err))
-        .then(() => (isLoading = false));
+        .then(() => {
+          isLoading = false;
+          hobbyInput.focus();
+        });
     }
   }
 </script>
 
 <label for="hobby">Hobby</label>
-<input type="text" id="hobby" bind:value={hobbyInput} />
+<input type="text" id="hobby" bind:this={hobbyInput} />
 <button on:click={addHobby}>Add Hobby</button>
 
 {#if isLoading}
