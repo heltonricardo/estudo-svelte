@@ -1,7 +1,25 @@
 <script>
+  import { onMount } from "svelte";
+
   let hobbies = [];
   let hobbyInput;
   let isLoading = false;
+
+  onMount(() => {
+    isLoading = true;
+    fetch("https://meetus-3fe2d-default-rtdb.firebaseio.com/hobbies.json")
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Failed!");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        hobbies = Object.values(data);
+      })
+      .catch((err) => console.log(err))
+      .then(() => (isLoading = false));
+  });
 
   function addHobby() {
     if (hobbyInput && !hobbies.find((h) => h === hobbyInput)) {
@@ -22,7 +40,6 @@
             throw new Error("Failed!");
           }
           // ...
-          
         })
         .catch((err) => console.log(err))
         .then(() => (isLoading = false));
