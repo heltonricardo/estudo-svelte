@@ -52,9 +52,15 @@
   }
 </script>
 
-<label for="hobby">Hobby</label>
+<p>
+  ⚠️ Data from this page is dynamically entered by users. The author of this
+  project assumes no responsibility for this content. ⚠️
+</p>
+<br>
+
+<label for="hobby">Enter an item:</label>
 <input type="text" id="hobby" bind:this={hobbyInput} />
-<button on:click={addHobby}>Add Hobby</button>
+<button on:click={addHobby}>Add</button>
 
 {#if isLoading}
   <p>Loading...</p>
