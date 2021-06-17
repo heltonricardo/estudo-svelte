@@ -15,7 +15,7 @@
         return res.json();
       })
       .then((data) => {
-        hobbyStore.setHobbies(Object.values(data));
+        hobbyStore.setHobbies(Object.values(data).reverse());
       })
       .catch((err) => console.log(err))
       .then(() => {
@@ -25,7 +25,7 @@
   });
 
   function addHobby() {
-    if (hobbyInput.value && !$hobbyStore.find((h) => h === hobbyInput.value)) {
+    if (hobbyInput.value && hobbyInput.value.trim().length > 0 && !$hobbyStore.find((h) => h === hobbyInput.value)) {
       isLoading = true;
 
       // Anotação 01
@@ -51,6 +51,14 @@
     }
   }
 </script>
+
+<style>
+  li {
+    margin: 1rem;
+    list-style-type: none;
+    text-align: center;
+  }
+</style>
 
 <p>
   ⚠️ Data from this page is dynamically entered by users. The author of this
