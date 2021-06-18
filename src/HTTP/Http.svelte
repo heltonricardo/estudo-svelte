@@ -10,23 +10,27 @@
     fetch("https://meetus-3fe2d-default-rtdb.firebaseio.com/hobbies.json")
       .then((res) => {
         if (!res.ok) {
-          throw new Error("Failed!");
+          throw "An error occurred! Please try again.";
         }
         return res.json();
       })
       .then((data) => {
         hobbyStore.setHobbies(Object.values(data).reverse());
       })
-      .catch((err) => console.log(err))
-      .then(() => {
+      .catch((err) => alert(err))
+      .finally(() => {
         isLoading = false;
         hobbyInput.focus();
       });
   });
 
   function addHobby() {
-    if (hobbyInput.value && hobbyInput.value.trim().length > 0 && !$hobbyStore.find((h) => h === hobbyInput.value)) {
+    if (
+      hobbyInput.value.trim().length > 0 &&
+      !$hobbyStore.find((h) => h === hobbyInput.value)
+    ) {
       isLoading = true;
+      hobbyInput.value = hobbyInput.value.substring(0, 60);
 
       // Anotação 01
       fetch("https://meetus-3fe2d-default-rtdb.firebaseio.com/hobbies.json", {
@@ -38,13 +42,13 @@
       })
         .then((res) => {
           if (!res.ok) {
-            throw new Error("Failed!");
+            throw "An error occurred! Please try again.";
           }
           hobbyStore.addHobby(hobbyInput.value);
           hobbyInput.value = "";
         })
-        .catch((err) => console.log(err))
-        .then(() => {
+        .catch((err) => alert(err))
+        .finally(() => {
           isLoading = false;
           hobbyInput.focus();
         });
@@ -53,22 +57,41 @@
 </script>
 
 <style>
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+
   li {
     margin: 1rem;
-    list-style-type: none;
     text-align: center;
+    word-wrap: break-word;
+  }
+
+  #warning {
+    text-align: center;
+  }
+
+  .but {
+    align-items: center;
+    text-align: center;
+  }
+  button {
+    margin: 0.5rem auto;
   }
 </style>
 
-<p>
+<p id="warning">
   ⚠️ Data from this page is dynamically entered by users. The author of this
   project assumes no responsibility for this content. ⚠️
 </p>
 <br />
 
 <label for="hobby">Enter an item:</label>
-<input type="text" id="hobby" bind:this={hobbyInput} />
-<button on:click={addHobby}>Add</button>
+<input type="text" id="hobby" maxlength="60" bind:this={hobbyInput} />
+<div class="but">
+  <button on:click={addHobby}>Add</button>
+</div>
 
 {#if isLoading}
   <p>Loading...</p>
