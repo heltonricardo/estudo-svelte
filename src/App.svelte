@@ -5,6 +5,7 @@
   import DataStore from "./DataStore/DataStore.svelte";
   import Animations from "./Animations/Animations.svelte";
   import Http from "./HTTP/Http.svelte";
+  import SpecialElements from "./SpecialElements/SpecialElements.svelte";
 
   let option = 6;
 </script>
@@ -24,6 +25,7 @@
     <option value={4}>Data Store</option>
     <option value={5}>Transitions, Motions and Animations</option>
     <option value={6}>Network Interaction via HTTP</option>
+    <option value={7}>Special Elements</option>
   </select>
 </p>
 <hr />
@@ -40,4 +42,6 @@
   <Animations />
 {:else if option === 6}
   <Http />
+{:else if option === 7}
+  <SpecialElements />
 {/if}
