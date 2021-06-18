@@ -7,7 +7,7 @@
   import Http from "./HTTP/Http.svelte";
   import SpecialElements from "./SpecialElements/SpecialElements.svelte";
 
-  let option = 6;
+  let option = 7;
 </script>
 
 <style>
