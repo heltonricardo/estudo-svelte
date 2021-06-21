@@ -3,7 +3,9 @@
 </script>
 
 <style>
-  div {margin-left: 2rem;}
+  div {
+    margin-left: 2rem;
+  }
 </style>
 
 <div>
