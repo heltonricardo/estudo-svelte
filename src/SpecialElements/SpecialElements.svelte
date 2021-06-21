@@ -2,7 +2,6 @@
   import Product from "./DynamicComponent/Product.svelte";
   import CartItem from "./DynamicComponent/CartItem.svelte";
   import FamilyNode from "./RecursiveComponent/FamilyNode.svelte";
-  import { bind } from "svelte/internal";
 
   /************************** COMPONENTES DINÂMICOS ***************************/
 
